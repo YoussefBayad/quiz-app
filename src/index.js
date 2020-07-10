@@ -1,17 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import './style.css';
+import api from './api';
+import QuestionBox from './QuestionBox';
+import Result from './Result';
+class QuizBee extends Component {
+  state = { questions: [], score: 0, responses: 0 };
+  getData() {
+    api().then((response) => this.setState({ questions: response }));
+  }
+  selected(option, correct) {
+    const { score, responses } = this.state;
+    if (option === correct) {
+      this.setState({ score: score + 1 });
+    }
+    this.setState({ responses: responses + 1 });
+  }
+  replay() {
+    this.getData();
+    console.log(66);
+  }
+  componentDidMount() {
+    this.getData();
+  }
+  render() {
+    const { score, responses, questions } = this.state;
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+    return (
+      <div className="container">
+        <div className="title">QuizBee</div>
+        {questions.length > 0 &&
+          this.state.responses < 5 &&
+          questions.map(({ question, answers, correct, questionId }) => (
+            <QuestionBox
+              question={question}
+              answers={answers}
+              correct={correct}
+              key={questionId}
+              selected={(answer) => this.selected(answer, correct)}
+            />
+          ))}
+        {this.state.responses === 5 ? (
+          <h1>{score}</h1> // <Result score={score} replay={this.replay.bind(this)} />
+        ) : null}
+      </div>
+    );
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(<QuizBee />, document.getElementById('root'));
