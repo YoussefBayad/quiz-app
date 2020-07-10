@@ -2,7 +2,6 @@
   "name": "quize-bee-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://YoussefBayad.github.io/quiz-app",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -12,6 +11,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
+  "homepage": "https://YoussefBayad.github.io/quiz-app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
