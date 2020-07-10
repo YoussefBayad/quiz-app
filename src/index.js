@@ -18,8 +18,9 @@ class QuizBee extends Component {
   }
   replay() {
     this.getData();
-    console.log(66);
+    this.setState({ score: 0, responses: 0 });
   }
+
   componentDidMount() {
     this.getData();
   }
@@ -40,8 +41,8 @@ class QuizBee extends Component {
               selected={(answer) => this.selected(answer, correct)}
             />
           ))}
-        {this.state.responses === 5 ? (
-          <h1>{score}</h1> // <Result score={score} replay={this.replay.bind(this)} />
+        {responses === 5 ? (
+          <Result score={score} replay={this.replay.bind(this)} />
         ) : null}
       </div>
     );
